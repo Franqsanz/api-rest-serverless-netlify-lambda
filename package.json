@@ -1,0 +1,17 @@
+{
+  "name": "api-graphql-serveless",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-express": "^2.15.1",
+    "express": "^4.17.1",
+    "serverless-http": "^2.5.0"
+  }
+}
