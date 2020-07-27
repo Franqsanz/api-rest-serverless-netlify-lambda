@@ -7,36 +7,20 @@ const router = express.Router();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// const typeDefs = gql`
-//     type users {
-//         name: String
-//     }
-
-//     type Query {
-//         users: [users]
-//     }
-// `
-
-// const resolvers = {
-//     Query: {
-//         users: () => 'franco'
-//     }
-// }
-
-// const server = new ApolloServer({
-//     resolvers,
-//     typeDefs,
-//     introspection: true,
-//     playground: true
-// });
-
 router.get('/', (req, res) => res.send('Express with Netlify Lambda'));
 
-router.get('/user', (req, res) => res.send({
-    users: {
-        "name": "Franco"
-    }
-}));
+const fruit = {
+    "Fruit": [
+        "Banana",
+        "Apple",
+        "Lemon",
+        "Peach",
+        "Grapefruit",
+        "Plum"
+    ]
+}
+
+router.get('/fruit', (req, res) => res.send(fruit));
 
 app.use('/api', router)
 
