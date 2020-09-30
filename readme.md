@@ -1,6 +1,6 @@
-# API REST Serverless + Netlify Lambda, Example
+# API REST Serverless + Netlify Lambda Example
 
-Ejemplo de como construir una API con express utilizando serverless + netlify lambda.
+Ejemplo de como construir una API en express utilizando serverless + netlify lambda
 
 ### Breve descripción
 

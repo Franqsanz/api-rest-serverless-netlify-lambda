@@ -9,49 +9,67 @@ app.use(express.urlencoded({ extended: false }));
 
 // Emulation Data Base
 const fruits = {
-    Fruits: [
-        {
-            id: 1,
-            Fruit: "Banana",
-            Climate: "Damp"
-        },
-        {
-            id: 2,
-            Fruit: "Apple",
-            Climate: "Cold"
-        },
-        {
-            id: 3,
-            Fruit: "Lemon",
-            Climate: "Semi Tropical"
-        }
-    ]
+  Fruits: [
+    {
+      id: 1,
+      fruit: "Banana",
+      climate: "Damp"
+    },
+    {
+      id: 2,
+      fruit: "Apple",
+      climate: "Cold"
+    },
+    {
+      id: 3,
+      fruit: "Lemon",
+      climate: "Semi Tropical"
+    }
+  ]
 }
 
 router.get('/', (req, res) => res.send(`
-    <section>
-        <h1>Express with Netlify Lambda</h1>
-        <a href="http://localhost:9000/api/fruits">
-            http://localhost:9000/api/fruits
-        </a>
-    </section>`
+  <section>
+    <h1>Express with Netlify Lambda</h1>
+    <a href="http://localhost:9000/api/fruits">
+      http://localhost:9000/api/fruits
+    </a>
+  </section>`
 ));
 router.get('/fruits', (req, res) => res.send(fruits));
 router.get('/fruits/:id', (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    const search = fruits.Fruits.find((fruit) => fruit.id == id);
-    res.send(search);
+  const fruitOne = fruits.Fruits.find((fruit) => fruit.id == id);
+  if (!fruitOne) return res.status(404).send('Is fruit doesn′t exist');
+  res.send(fruitOne);
+});
+router.put('/fruits/:id', (req, res) => {
+  const id = req.params.id;
+  const body = req.body;
+
+  const index = fruits.Fruits.find((fruit) => fruit.id == id);
+  if (index) Object.keys(body).forEach((key) => (index[key] = body[key]));
+  res.send(index);
 });
 router.post('/fruits/', (req, res) => {
-    const newFruit = {
-        id: 4,
-        Fruit: "Pear",
-        Climate: "Warm and Humid"
-    }
+  const body = req.body;
 
-    fruits.Fruits.push(newFruit);
-    res.send(fruits);
+  const newFruit = {
+    id: body.id,
+    fruit: body.fruit,
+    climate: body.climate
+  }
+
+  fruits.Fruits.push(newFruit);
+  res.send(fruits);
+});
+router.delete('/fruits/:id', (req, res) => {
+  const id = req.params.id;
+
+  const deleteFruit = fruits.Fruits.findIndex((fruit) => fruit.id == id);
+  if (deleteFruit > -1) fruits.Fruits.splice(deleteFruit, 1);
+  res.send(fruits);
 });
 
 app.use('/api', router);
